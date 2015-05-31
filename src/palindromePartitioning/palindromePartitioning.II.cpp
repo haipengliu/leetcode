@@ -84,6 +84,7 @@ int minCut(string s) {
 
 int minCut_DP(string& s) {
     //res[] is for minimal cut DP
+    //here is to initialize the vector's values to zeros
     vector<int>res(s.size(),0);
     //mp[][] is for palindrome checking DP
     bool mp[s.size()][s.size()];

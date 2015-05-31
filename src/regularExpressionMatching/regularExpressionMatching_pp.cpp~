@@ -32,39 +32,18 @@
 
 using namespace std;
 
-bool isMatch(const char *s, const char *p) {
-
-    if (*p=='\0') {
-        return *s == '\0';
-    }
-    //p's length 1 is special case 
-    if (*(p+1) == '\0' || *(p+1) !='*' ) {
-        if (*s=='\0' || ( *p !='.' && *s != *p )) {
-            return false;
-        }
-        return isMatch(s+1, p+1);
-    }
-    int len = strlen(s);
-    int i = -1;
-    while (i < len && (i <0 || *p=='.' || *p==*(s+i)) ){
-        if (isMatch(s+i+1, p+2)) {
-            return true;
-        }
-        i++;
-    }
+bool isMatch(string s, string p)
+{
+  if ( s.size() == 0 || p.size() == 0 )
+  {
     return false;
+  }
+
+  return dfs(s, p, startS, startP);
 }
 
-
-int main(int argc, char** argv)
+bool dfs(string s, string p, int startS, int startP)
 {
-    const char* s = "aaab";
-    const char* p = "a*ab";
-
-    if (argc>2) {
-        s = argv[1];
-        p = argv[2];
-    }
-
-    cout << s << ", " << p << " : " << isMatch(s,p) << endl;
+  
+  
 }
