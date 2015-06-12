@@ -33,10 +33,10 @@
 using namespace std;
 
 
-bool isSame(char s, char p);
-void print_dp(bool ** dp, int m, int n);
+int isSame(char s, char p);
+void print_dp(int ** dp, int m, int n);
 
-void fill_dp(string s, string p, bool ** dp)
+void fill_dp(string s, string p, int ** dp)
 {
   int i, j;
 
@@ -48,29 +48,39 @@ void fill_dp(string s, string p, bool ** dp)
       {
         if ( i == 0 )
         {
-          dp[i][j] = true; 
+          dp[i][j] = 1; 
         }
         else
         {
-          dp[i][j] = false;
+          dp[i][j] = -1;
         }        
       }
-      else if ( 2 <= j && j <= p.size() && p[j-1] == '*' )
+      else if (j == 2 && p[j-1] == '*' && p[j-2] == '.')
+      {
+        dp[i][j] = 1;
+      }
+      else if ( 2 < j && j <= p.size() && p[j-1] == '*' )
       {
         int k = 0, tag = 0;
 
         for ( k = 0; k <= i; k++ )
         {
-          if ( k == 0 && dp[i][j-2] )
+          if ( k >= 2 && !isSame(s[i-k], s[i-k+1]) )
           {
-            dp[i][j] = true;
+            tag = 0;
+            break;
+          }
+          
+          if ( k == 0 && dp[i][j-2] == 1 )
+          {
+            dp[i][j] = 1;
             tag = 1;
             break;
           }
 
-          if ( k != 0 && isSame(s[i-k], p[j-2]) && dp[i-k][j-2])
+          if ( k != 0 && isSame(s[i-k], p[j-2]) && dp[i-k][j-2] == 1)
           {
-            dp[i][j] = true;
+            dp[i][j] = 1;
             tag = 1;
             break;
           }
@@ -79,7 +89,7 @@ void fill_dp(string s, string p, bool ** dp)
 
         if ( tag == 0 )
         {
-          dp[i][j] = false;
+          dp[i][j] = -1;
         }
         
        
@@ -88,17 +98,17 @@ void fill_dp(string s, string p, bool ** dp)
       {
         if ( !isSame(s[i-1], p[j-1]) )
         {
-          dp[i][j] = false;
+          dp[i][j] = -1;
         }
         else 
         {
-          if (dp[i - 1][j - 1] && 1 <= i && 1 <= j)
+          if ( 1 <= i && 1 <= j && dp[i - 1][j - 1] == 1 )
           {
-            dp[i][j] = true;
+            dp[i][j] = 1;
           }
           else
           {
-            dp[i][j] = false;
+            dp[i][j] = -1;
           }
             
         }
@@ -110,7 +120,7 @@ void fill_dp(string s, string p, bool ** dp)
    
 }
 
-bool isSame(char s, char p)
+int isSame(char s, char p)
 {
   if ( s == p || p == '.' )
   {
@@ -125,31 +135,32 @@ bool isSame(char s, char p)
 
 bool isMatch(string s, string p)
 {
-  bool ** dp = NULL;
+  int ** dp = NULL;
   int i;
 
-  dp = new bool*[s.size() + 1];
+  dp = new int*[s.size() + 1];
 
   for ( i = 0; i <= s.size(); i++ )
   {
-    dp[i] = new bool[p.size() + 1];
+    dp[i] = new int[p.size() + 1];
+    memset(dp[i], sizeof(int)*(p.size()+1), 0);
   }
 
-  dp[0][0] = true;
+  dp[0][0] = 1;
   fill_dp(s, p, dp);
   print_dp(dp, s.size(), p.size());
   
-  if ( dp[s.size(), p.size()] )
+  if ( 1 == dp[s.size()][p.size()] )
   {
     return true;
   }
-  else
+  else if ( -1 == dp[s.size()][p.size()] )
   {
     return false;
   }
 }
 
-void print_dp(bool ** dp, int m, int n)
+void print_dp(int ** dp, int m, int n)
 {
   int i, j;
 
@@ -166,12 +177,12 @@ void print_dp(bool ** dp, int m, int n)
 
 int main()
 {
-  string s = "aa";
-  string p = "a";
+  string s = "ab";
+  string p = ".*";
 
   //cout<<s<<endl<<p<<endl;
 
-  if ( true == isMatch(s, p) )
+  if ( isMatch(s, p) )
   {
     cout<<"Match"<<endl;
   }

@@ -98,25 +98,29 @@ char *strStr2(char *haystack, char *needle) {
 
 int main(int argc, char** argv)
 {
-    srand(time(0));
-    const char* haystack = "mississippi";
-    const char* needle = "issi";
-    printf("%s, %s : %s\n", haystack, needle, strStr((char*)haystack, (char*)needle));
+  const char * heystack = "abcabcabcdef";
+  const char * needle   = "abcabcdef";
+  
+  strStr1((char*)heystack, (char*)needle);
+    /* srand(time(0)); */
+    /* const char* haystack = "mississippi"; */
+    /* const char* needle = "issi"; */
+    /* printf("%s, %s : %s\n", haystack, needle, strStr((char*)haystack, (char*)needle)); */
 
-    haystack = "mississippi";
-    needle = "issip";
-    printf("%s, %s : %s\n", haystack, needle, strStr((char*)haystack, (char*)needle));
+    /* haystack = "mississippi"; */
+    /* needle = "issip"; */
+    /* printf("%s, %s : %s\n", haystack, needle, strStr((char*)haystack, (char*)needle)); */
 
 
-    haystack = "babbbbbabb";
-    needle = "bbab";
-    printf("%s, %s : %s\n", haystack, needle, strStr1((char*)haystack, (char*)needle));
+    /* haystack = "babbbbbabb"; */
+    /* needle = "bbab"; */
+    /* printf("%s, %s : %s\n", haystack, needle, strStr1((char*)haystack, (char*)needle)); */
 
-    if (argc>2){
-        haystack = argv[1];
-        needle = argv[2];
-        printf("%s, %s : %s\n", haystack, needle, strStr((char*)haystack, (char*)needle));
-    }
+    /* if (argc>2){ */
+    /*     haystack = argv[1]; */
+    /*     needle = argv[2]; */
+    /*     printf("%s, %s : %s\n", haystack, needle, strStr((char*)haystack, (char*)needle)); */
+    /* } */
     
     return 0;
 }
