@@ -1,0 +1,16 @@
+vector<vector<int> > combinationSum(vector<int> &candidates, int target)
+{
+  vector<vector<int> > results;
+  
+  if ( candidates.size() <= 0 )
+  {
+    return results;
+  }
+
+  vector<int> solution;
+
+  solution.push_back(candidates[0]);
+  helper(candidates, 0, target, solution, results);
+
+  return results;
+}

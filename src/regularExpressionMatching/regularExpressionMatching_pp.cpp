@@ -35,9 +35,6 @@ using namespace std;
 bool dfs(string s, string p, int startS, int startP);
 bool isSame(char s, char p);
 
-
-
-
 bool dfs(string s, string p, int startS, int startP)
 {
   if ( startP >= p.size() )

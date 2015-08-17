@@ -1,0 +1,23 @@
+#include <vector>
+#include <set>
+#include <string>
+#include <iostream>
+
+using namespace std;
+
+
+vector<int> findSubstring(string s, vector<string> &words)
+{
+  vector<int> result;
+  int N = s.size();
+  int sizeDict = words.size();
+  int sizeWord = words[0].size();
+
+  if ( 0 == N || 0 == sizeDict || 0 == sizeWord )
+  {
+    return result;
+  }
+
+  
+}
+
