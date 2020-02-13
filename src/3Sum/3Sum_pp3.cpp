@@ -1,5 +1,8 @@
+#include <stdio.h>
+#include <iostream>
 #include <vector>
 #include <utility>
+#include <algorithm>
 
 using namespace  std;
 
@@ -43,12 +46,13 @@ vector< vector<int> > threeSum(vector<int> &nums)
 {
   vector< vector<int> > results;
   vector< pair<int, int> > twos;
-  for (int i = 0; i < nums.size(); i++)
+  sort(nums.begin(), nums.end());
+  for (int i = 0; i < nums.size(); i=moveLeft(nums, i))
   {
     int head=nums[i];
     int target=0-head;
 
-    twos=twoSum(nums, i+1, nums.size(), target);
+    twos=twoSum(nums, i+1, nums.size()-1, target);
     for(int j=0; j<twos.size(); j++){
       vector<int> oneResult={head, twos[j].first, twos[j].second};
       results.push_back(oneResult);
